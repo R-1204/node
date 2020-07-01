@@ -9,6 +9,9 @@ var common = require('./moudle/common.js')
 http.createServer(function (request, response) {
     //1.获取浏览器url
     var url = request.url
+    if (url == '/') {
+        url = url + 'index.html'
+    }
     if (url != '/favicon.ico') {
         //2.读取对应html文件
         var extnames = common.getExtName(path.extname(url))
