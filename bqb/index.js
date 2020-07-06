@@ -3,6 +3,7 @@ const axios = require('axios')
 const fs = require('fs')
 const path = require('path')
 var url = "https://www.doutula.com/"
+//目前只获取第一页
 axios.get(url).then((res => {
 
     var $ = cheerio.load(res.data)
@@ -32,6 +33,10 @@ function parsePage(url, title) {
                 responseType: 'stream'
             }).then((res) => {
                 res.data.pipe(content)
+                res.data.on('close', function () {
+                    //所有图片爬取完关闭
+                    content.close()
+                })
             })
 
         })
